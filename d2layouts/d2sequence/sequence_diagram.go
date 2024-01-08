@@ -555,6 +555,13 @@ func (sd *sequenceDiagram) routeMessages() error {
 		}
 		prevGroup = group
 
+		bias := 0.
+		if message.Style.Bias != nil {
+			bias, _ = strconv.ParseFloat(message.Style.Bias.Value, 64)
+			messageOffset += bias
+		} else {
+			messageOffset += sd.yStep
+		}
 		startY := messageOffset + noteOffset
 
 		var startX, endX float64
@@ -599,7 +606,6 @@ func (sd *sequenceDiagram) routeMessages() error {
 			}
 			prevIsLoop = false
 		}
-		messageOffset += sd.yStep
 
 		if message.Label.Value != "" {
 			message.LabelPosition = go2.Pointer(label.InsideMiddleCenter.String())

@@ -727,6 +727,8 @@ func compileStyleFieldInit(attrs *d2graph.Attributes, f *d2ir.Field) {
 		attrs.Style.DoubleBorder = &d2graph.Scalar{MapKey: f.LastPrimaryKey()}
 	case "text-transform":
 		attrs.Style.TextTransform = &d2graph.Scalar{MapKey: f.LastPrimaryKey()}
+	case "bias":
+		attrs.Style.Bias = &d2graph.Scalar{MapKey: f.LastPrimaryKey()}
 	}
 }
 

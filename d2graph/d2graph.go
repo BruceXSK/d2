@@ -228,6 +228,7 @@ type Style struct {
 	Filled        *Scalar `json:"filled,omitempty"`
 	DoubleBorder  *Scalar `json:"doubleBorder,omitempty"`
 	TextTransform *Scalar `json:"textTransform,omitempty"`
+	Bias          *Scalar `json:"bias,omitempty"`
 }
 
 // NoneTextTransform will return a boolean if the text should not have any
@@ -413,6 +414,11 @@ func (s *Style) Apply(key, value string) error {
 			return fmt.Errorf(`expected "text-transform" to be one of (%s)`, strings.Join(textTransforms, ", "))
 		}
 		s.TextTransform.Value = value
+	case "bias":
+		if s.Bias == nil {
+			break
+		}
+		s.Bias.Value = value
 	default:
 		return fmt.Errorf("unknown style key: %s", key)
 	}
@@ -1734,6 +1740,7 @@ var StyleKeywords = map[string]struct{}{
 	// Only for edges
 	"animated": {},
 	"filled":   {},
+	"bias":     {},
 }
 
 // TODO maybe autofmt should allow other values, and transform them to conform
